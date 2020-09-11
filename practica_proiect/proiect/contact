@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	body {background-color: #ffe6e6;}	
+
+h1 {font-size : 350%;
+    color:#ff1a75;
+   margin: 50px;  }
+
+ ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #99004d;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #ffe6e6;
+  text-align: justify;
+  padding: 5px 20px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #4d004d;
+}
+
+.active {
+  background-color: #4d004d;
+}
+
+</style>
+
+	</head>
+<body>
+
+<ul>
+  <li><a  href="#acasa">Acasa</a></li>
+  <li><a class="active" href="contact.html">Contact</a></li>
+  <li><a href="#despre">Despre noi</a></li>
+</ul>
+
+	<h1> Contact</h1>
+	<p1> email : alesamoila@yahoo.com</p1>
+
+	<form action="/">
+</form> 
+</body>
+</html>

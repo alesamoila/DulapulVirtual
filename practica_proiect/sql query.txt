@@ -1,0 +1,119 @@
+create table Utilizator (
+    id number not null constraint utilizator_pk primary key,
+    nume varchar2(50) not null,
+    prenume varchar2(50) not null,
+    varsta number,
+    username varchar2(50) not null,
+    password varchar2(50) not null
+);
+
+create table Item (
+    id_item number not null constraint item_pk primary key,
+    poza blob not null,
+    tip_haina varchar2(50) not null,
+    culoare varchar2(50) not null,
+    temperatura varchar2(50) not null,
+    descriere varchar2(500),
+    id_bagaj number,
+    id_proprietar number not null
+);
+
+
+create table IntervalTemperatura (
+    interval_t varchar2(7) not null constraint intervaltemperatura primary key
+);
+
+
+
+create table culoare (
+    culoare varchar2(50) not null constraint culoare primary key
+);
+
+
+
+create table bagaj (
+    id_bagaj number not null constraint bagaj primary key
+);
+
+create table tip_haina (
+    nume varchar2(50) not null constraint tip_haina primary key,
+    purtare varchar2(50) 
+);
+
+ALTER TABLE item
+ADD FOREIGN KEY (culoare) REFERENCES culoare(culoare);
+
+ALTER TABLE item
+ADD FOREIGN KEY (temperatura) REFERENCES intervaltemperatura(interval_t);
+
+ALTER TABLE item
+ADD FOREIGN KEY (id_bagaj) REFERENCES bagaj(id_bagaj);
+
+ALTER TABLE item
+ADD FOREIGN KEY (id_proprietar) REFERENCES utilizator(id);
+
+ALTER TABLE item
+ADD FOREIGN KEY (tip_haina) REFERENCES tip_haina(nume);
+
+--Insert
+
+INSERT INTO `culoare`(`culoare`) VALUES ("multicolor");
+INSERT INTO `culoare`(`culoare`) VALUES ("alb");
+INSERT INTO `culoare`(`culoare`) VALUES ("auriu");
+INSERT INTO `culoare`(`culoare`) VALUES ("albastru");
+INSERT INTO `culoare`(`culoare`) VALUES ("argintiu");
+INSERT INTO `culoare`(`culoare`) VALUES ("bej");
+INSERT INTO `culoare`(`culoare`) VALUES ("crem");
+INSERT INTO `culoare`(`culoare`) VALUES ("denim");
+INSERT INTO `culoare`(`culoare`) VALUES ("gri");
+INSERT INTO `culoare`(`culoare`) VALUES ("kaki");
+INSERT INTO `culoare`(`culoare`) VALUES ("maro");
+INSERT INTO `culoare`(`culoare`) VALUES ("mov");
+INSERT INTO `culoare`(`culoare`) VALUES ("negru");
+INSERT INTO `culoare`(`culoare`) VALUES ("portocaliu");
+INSERT INTO `culoare`(`culoare`) VALUES ("roz");
+INSERT INTO `culoare`(`culoare`) VALUES ("rosu");
+INSERT INTO `culoare`(`culoare`) VALUES ("verde");
+INSERT INTO `culoare`(`culoare`) VALUES ("visiniu");
+
+
+
+INSERT INTO `intervaltemperatura`(`interval_t`) VALUES ("<(-10)");
+INSERT INTO `intervaltemperatura`(`interval_t`) VALUES ("(-10)-0");
+INSERT INTO `intervaltemperatura`(`interval_t`) VALUES ("0-10");
+INSERT INTO `intervaltemperatura`(`interval_t`) VALUES ("10-15");
+INSERT INTO `intervaltemperatura`(`interval_t`) VALUES ("15-20");
+INSERT INTO `intervaltemperatura`(`interval_t`) VALUES ("20-25");
+INSERT INTO `intervaltemperatura`(`interval_t`) VALUES (">25");
+
+
+
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("bluza","top");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("tricou","top");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("pantaloni lungi","picioare");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("pantaloni scurti","picioare");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("fusta","picioare");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("rochie","complet");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("jerseu","top-extra");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("vesta","top-extra");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("palton","top-extra");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("haina groasa","top-extra");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("accesorii","accesorii");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("salopeta","complet");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("incaltaminte","incaltaminte");
+INSERT INTO `tip_haina`(`nume`, `purtare`) VALUES ("hanorac","top");
+
+
+INSERT INTO `utilizator`(`id`, `nume`, `prenume`, `varsta`, `username`, `password`) VALUES (1,"Satmar","Diana",22,"dia","dia");
+
+INSERT INTO `utilizator`(`id`, `nume`, `prenume`, `varsta`, `username`, `password`) VALUES (2,"Man","Andreea",34,"mandreea","mandreea");
+
+INSERT INTO `utilizator`(`id`, `nume`, `prenume`, `varsta`, `username`, `password`) VALUES (3,"Benj","Ioana",17,"ioana","benj");
+
+
+
+--Pentru tabela item, avand in vedere ca am o coloana in care adaug poze, nu am adaugat datele folosindu-ma de query, am introdus datele prin ïnsert"unde aveam buton pentru "choose image"
+--Atasez doar un exemplu de query pentru aceasta tabela:
+
+INSERT INTO `item` (`id_item`, `poza`, `tip_haina`, `culoare`, `temperatura`, `descriere`, `id_bagaj`, `id_proprietar`) VALUES ('1', 0xffd8ffe000104a46494600010100000100010000ffdb008400090607080706090807080a0a090b0d160f0d0c0c0d1b14151016201d2222201d1f1f2428342c242631271f1f2d3d2d3135373a3a3a232b3f443f384334393a37010a0a0a0d0c0d1a0f0f1a37251f253737373737373737373737373737373737373737373737373737373737373737373737373737373737373737373737373737ffc000110800c400a003012200021101031101ffc4001b00000105010100000000000000000000000400010203050607ffc400401000010302040106080d04030000000000010002030411051221314122325161718106139192a1b1c1d1141523243334424352536272a2258293e154c2f0ffc400190101010101010100000000000000000000000102040305ffc4002111010002020104030100000000000000000001020311311421415104223242ffda000c03010002110311003f00f71492490249249035d5534f1c0dbc86dd4151575ad86ed61ccf3c3a1644b23a47973c924ee51eb4c536ee3a5c4dd7391a037d2b165c72ab0cc5f2d4132d1d458b093cc77103c97f2a22e87aaa586aa17413b33467af51d60f0474c63a476d3a0a7c5a8ea00b4990f43b4463658ddcd7b4f7ae14d3c948cb1124f18fb4d6ddde41bf7219d8be1f11ca7108a37ded95eec86fd88c4fc7af897a217b46ee68ef43cb8852c57cf3b34dec6eb84655c5566d156098ef958e2e3e8574787be5d5ef731bd16d48423e347996f57636e99e19879e4b357bcb77e803ff006d746d2e2cc7656548c9211a9e0b1a38e3858191340b0d0262c16e9ed46a70d2634eb5a4117041ba92e5e92ba6a37581cf1f1695b945884157a31d95fc5aedd1cd7c56a8c4935d3a3cc924924092292481967d756daec88f6957d64f91995a7945623cdde403aa3db1537de4ce713dfba894f7d545e6cdba8ea313aa6290213a29b8dc6ea0e6975b334380e9d558902aaed5d9d97286d8740d9483096d8bb4e238a9a561d0a26d10d01391a272922ed539b70a97348d4120f023822885073501986634e6bdb0d6f1da4f7adf6b8385c6a17193b2d7706ecb6bc1dac2f83e0cf772e31c9bf10ab97362d7786da4993a39c933886b493b0490f5afcb091d3a22c46e74cdaa94bdce37dd6547216d49b9d0a3a73a1ea588f9cb6b4741d11df8ebd9a64d9c4267ec911f2afed49fb2299aa5c141aace08217d548289dd482073b2609dfc1334a09f0512539d9524f2905a99c138e6a64144cf6471e627426ca98a7752cf0d432e5ad372071084c465266f17c023668ed0b4755d55b5770ecd8e0e01c0dc1170a4b3b02a81361f18241733927b968a8f9d31a9d1b82cec45fcb6b780175a3c163d6bef33fb51bc51bb0399da158754c7670e035bad990e8504f617165bf181e908efa761d6e53cf5aa9eade9bf1553ca3266ab382a0157379a82077536a89dd4da2c819e9980a4f526040eed9504f295cfd90ce3ca404379aa24a933985568ac1c5a4f175847505baffa16df8b57318f38fc6f0c6377b5beb5d44c2cc0de801559e057831396cd2539fb4db8ed0ba3bae330c97e0f89444ed9ac7bf4f6aecd470e68d58ce395a4f405812bb33c95b556ecb4f21ea584f3aa378614ce7441c25c6a58074a22a89c97086a1766a861ebf623ae3868d95131b2befa2125377d9198269ba25a390856ee117b30212a86ae563ac2cab1cf4f29b590293829b76ba8b87c9dd499cc0822f28479e52bc9b828679e522c0e67d1aa958cfa35510839daf8fc6784f424ed947acae8e4d5c6eb1a46e6f08a98f0119f6ad80e0f79eadd5504e3966cc3706ebb7a7789208de3ed3415c4385def2bacc0a4f1986427f0ddbe436472fc88e16e227e6a7b42c4795b18a9b42d1d7ec58aed545c11f50b5a7e4951859b960b71dd4f10706c275dd57839bb5a7ad1d3e1a4f166a109e5945cc7442b472894660c39c118ed1a109f6c22dda3404255379c9a73a84e39ca351b20bbee828b39a53b3951e8a2341641574a1e4e72bde752a87dca34361d58ab7a9536ac5095119537271a89fd11dbd6b520d627b964569b5687740b7a56c1b474718e2e0aacf00d9af8c1d25747e0cbef43237f0c87d416035b9632b67c187693b0f120a3c3347d06e2eed231da56495a38bbbe55a3f4fb56692a18a3eacac589ce1a0e8a54244669d9c4bfcaa18a0e5072a217b9d5d46d6b4d83ae4f71474c70da9394aab72ac15a5525daf5a306d9e11926d7ea41fdb17dd192f33b912550d4a854e8d526150aae6a2c2ea7378876289d0a54bf46127ee88a5fbaa9fa29bceaaa794686521e415097a14a9746284db94461620fb5581c6ded5b92f318de803d4b99c5a4b62518e968f5ae99fb8ea16565a9e10773085a1e0d3be75237a59ed59eee6a37c1d75b1070e961478e5fcc8dc58fce8f500100741745e26ef9dbd06ed9431fe601d48f180852a30c6656e81d7d3c8a335efa2a217915f003c5dec47b470d37803642b7593544cbc961085879c6e8cc244fcbb51b2ec0752059f4bde8e9761d884aa6854d61b37bd5cd5456733bd085d4bcd03827954294ea3b14e608790eeb5d50fdd5cfdd50edd551f4f60c55cca701e42848a0e471837c76923fc5974fee5d6bf577605c9626dcde14d17e98afe9b7b575a38ab2a8bc598511813b2e271f582150ed94f09765c520eb3ec47964fc8ec44fcee5b74a0dc4d9135e6f5529fd4508e3a2853f301e6413640318a3683ce7907c85173bacdbacec3fe571c8afae48def1d5b0f6a3d77a8db72a0d9a421e2bd9d6dcecada83e952a66000dd19e209b186589e71443f9a15123ae4057bb400212a95553cc569362aa9f561412a2e683d4ad97754e1c6ed20ab64dd09e43bc6a8793475910e3ca42d468f5560744792134a9a9f94c09e5d941cbe22cbe3d0c878476fe4574cd3700f52e6f1470f8de303711dff915d1c06f0b4f52b2be0eed93e1da623013f8c2671d13519b57c078676fad1e77e06d6fd624fdc50af44d59bd449fb8a15e7550a71012ab9850fe0f333e235925ae2380007acb87b95d584069b957782f1ff4ec46ab8ba7647e6807fecab579d544385ddaab611c9254372ad60b47a284f0a24e777abde7405512f3910e032043c2871d545fab0a93d45b72cd514b0dd9ca729b150a016748074a695d7711c4213cab768f0aaaa6dace5394d9c0a538cf15c2a2ca27668efd015926a10787bef14806ed44b89b28b661631006cb4f55f8b3467b8823d6b6a90de061ea42e31097e00f9dbbc156d24fe9736deb215f86bf3d147d88959dae728d37d6e2fdc0fa54c80a30fd623b7e20ab36e2454ff5892fd250efb02889f49a4fde7d6867efb5d42bc33b1176856be011e5f0583c0b196a1eff00e597d4d0b16bc80c75db62ba282330f83187b6321bc86937e248b9f5aace5fe6143196dd5a4598832673f6a31d594a8bbe14767c7e6951bd2c94df6e944bf460ec4132197937945c1be8cff6af904ce658c835fd08a8cc72b015188bb956d9425133800641607f07fb518fc6464e5946bbf23fda0229ce47c82da917543f42e37dd307bd8e73992389238d9521d21b82f710780b21a593733ad596b437ea43b84927175c74dbdcac224780d32683a405543e1f764b3467a11cfd580f52a22a7918f73f3b2e45af977f4ab2574be2f281193b0372a129d50bf82d8b697cb67f92c567e06fcd87b4f590b6e8636cd806261ff6d8e0e1fdab9ff074138735c78bb4479d39b352fba7a7d668ff0078509080c363ad94a95a43e00e1625e3d6ab56e24563424a6aa94421ae6bb5ca6f7bf1d5649a9a907eaedf396de381df0b7726e2c2c566f8b71d4fa944c5deb0cdcb3d655474efb344af6b76eb5da62b1362c3a28a36d9ac2034752e768e3fea7484ee666d82ece486399b9646873785d578e6b6ad0e5f21b0b84f9574270da43bc5fc8fbd47e2aa4fcb779eef7a87515f4e7ec42401e2ba0f8aa8ff002ddfe477bd2f8aa8ff0028ff0091def43a8afa738f05542124dcecba8185518fba3e7bbdea430da41f723ca50ea2be9cbf88097891c085d4fc5d49f90cf225f17d27fc78fc887511e9cc78bb0deea25aba9387521fb86a81c2e88ef08ee711ed43a8afa72fa8507073b65d51c2288fdd1f3ddef51f89e8f831fe7943a8afa05e0d0060a98dc0105da8ee5cdb60929ab2ae9e17658e399c1a2dc2ebb9a6a382943bc4332e6df526eb9b9e30311ac36de5f604315e2724c8131388bba471ef5760ec2ec4e1638e66e62eb15395ad035f4abb0417c4e3b345803aaaf5bcfd65bf55410543b3bda737483641bb0b843ac24940ed1ee4e928e3ada63cafa7c2696199b386bcc8dd8b9d7b2d009248c5a6667b924924884924920492492049249204924920492492047650746c77398d3da124903789887ddb3cd0a4d8d8de6b40ec0992436fffd9, 'bluza', 'roz', '10-15', NULL, NULL, '1');
+ 
